@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>iframe</title>
+    <style>
+        body {
+            background-color: #FFFFFF;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>This is an iframe</h1>
+    <p>Send a message:
+        <button id="send-button-string">String</button>
+        <button id="send-button-array">Array</button>
+        <button id="send-button-object">Object</button>
+    </p>
+    <p>Received message:</p>
+    <div id="message"></div>
+
+    <script>
+        
+        const stringButton = document.getElementById('send-button-string');
+        const arrayButton = document.getElementById('send-button-array');
+        const objectButton = document.getElementById('send-button-object');
+
+        const sendMessage = (messageType) => {
+            let message
+            switch(messageType) {
+                case 'string':
+                    message = 'random string'
+                case 'array':
+                    message = [1, 2, 3]
+                case 'object':
+                    message = { key: 'key', value: 'value'}
+            }
+            window.parent.postMessage(message, '*');
+        }
+        stringButton.addEventListener('click', () => sendMessage('string'))
+        arrayButton.addEventListener('click', () => sendMessage('array'))
+        objectButton.addEventListener('click', () => sendMessage('object'))
+
+        const messageContainer = document.getElementById('message')
+        window.addEventListener('message', e => {
+            messageContainer.innerHTML = e.data;
+        }), false);
+        
+    </script>
+</body>
+</html>
