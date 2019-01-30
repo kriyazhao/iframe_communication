@@ -37,7 +37,7 @@
                 case 'object':
                     message = { key: 'key', value: 'value'}
             }
-            window.parent.postMessage(message, '*');
+            window.parent.postMessage(message, 'http://localhost:8080');
         }
         stringButton.addEventListener('click', () => sendMessage('string'))
         arrayButton.addEventListener('click', () => sendMessage('array'))
